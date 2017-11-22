@@ -1,11 +1,11 @@
 require 'rspec'
 require 'manabu'
-# require 'gaku'
 require 'faraday'
+require 'gaku/container'
 
 RSpec.configure do |config|
   config.before(:suite) do
-    system('cd ../gaku; bin/gaku container start')
+    Gaku::Container.new('start').execute
     loop do
       res = Faraday.get('http://localhost:9000/api/status') rescue nil
       break if res && res.status == 200
@@ -16,6 +16,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    system('cd ../gaku; bin/gaku container delete')
+    Gaku::Container.new('delete').execute
   end
 end
