@@ -1,5 +1,3 @@
-require_relative 'auth'
-
 module Manabu
   # General client interface which bundles together most client functionality
   class Client

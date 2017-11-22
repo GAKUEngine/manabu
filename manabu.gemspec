@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
     '╔═════════════════════════╼' +
     "║Manabu API Client for ⚙学 GAKU Engine [学エンジン] " +
     '╟─────────────────────────╼' +
-    '║©2016 (株)幻創社 [Phantom Creation Inc.]' +
+    '║©2015 (株)幻創社 [Phantom Creation Inc.]' +
     '║http://www.gakuengine.com' +
     '╟─────────────────────────╼' +
     '║Manabu is Open Sourced under the AGPLv3/GPLv3.' +
@@ -25,4 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday_middleware', '~> 0.12', '~> 0.12.2'
   s.add_dependency 'typhoeus', '~> 1.3', '~> 1.3.0'
   s.add_dependency 'msgpack', '~> 1.1', '~> 1.1.0'
+
+  #s.add_development_dependency 'gaku'
 end
