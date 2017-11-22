@@ -84,6 +84,7 @@ module Manabu
     end
 
     def _datafy_msgpack(body)
+      MessagePack::DefaultFactory.register_type(0x00, Symbol)
       MessagePack.unpack(body)
     rescue
       raise Error::InvalidMsgPack, 'Malformed data from server!'
