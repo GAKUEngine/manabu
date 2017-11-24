@@ -46,7 +46,7 @@ module Manabu
     end
 
     # Gets data from the server
-    def get(endpoint, *args)
+    def get(endpoint, **args)
       response = connect.get(
         URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
       )
@@ -55,7 +55,8 @@ module Manabu
     end
 
     # Sets data from the server
-    def set(endpoint, *args)
+    def set(endpoint, **args)
+      binding.pry
       response = connect.post(
         URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
       )
