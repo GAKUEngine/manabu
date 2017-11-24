@@ -5,7 +5,7 @@ require 'gaku/container'
 
 RSpec.configure do |config|
   config.before(:suite) do
-    Gaku::Container.new('start').execute
+    Gaku::Container.Start
     loop do
       res = Faraday.get('http://localhost:9000/api/status') rescue nil
       break if res && res.status == 200
@@ -16,6 +16,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    Gaku::Container.new('delete').execute
+    Gaku::Container.Delete
   end
 end
