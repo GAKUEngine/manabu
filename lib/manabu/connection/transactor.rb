@@ -47,7 +47,7 @@ module Manabu
       end
 
       # Gets data from the server
-      def get(endpoint, *args)
+      def get(endpoint, **args)
         response = connect.get(
           URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
         )
@@ -56,7 +56,7 @@ module Manabu
       end
 
       # Sets data from the server
-      def set(endpoint, *args)
+      def set(endpoint, **args)
         response = connect.post(
           URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
         )
@@ -69,7 +69,7 @@ module Manabu
         when 200..299
           return # don't raise
         else
-          raise Error::Connection::UnprocessableEntity, response.body
+          raise Error::UnprocessableEntity, response.body
         end
       end
 
