@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'manabu/transactor'
+require 'manabu/connection/transactor'
 
-describe Manabu::Transactor do
+describe Manabu::Connection::Transactor do
   describe 'initialize' do
     it 'initializes, connects to the server, and checks status' do
-      trans = Manabu::Transactor.new('localhost', 9000, false)
+      trans = Manabu::Connection::Transactor.new('localhost', 9000, false)
       expect(trans.status).to eq :running
     end
   end
