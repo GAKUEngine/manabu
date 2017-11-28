@@ -21,7 +21,7 @@ module Manabu
       end
 
       def _authenticate
-        response = transactor.set("v1/authenticate", email: email, password: password)
+        response = transactor.post("v1/authenticate", email: email, password: password)
         @connection = true
         _refresh(response[:tokens])
       end
@@ -33,7 +33,7 @@ module Manabu
           loop do
             break unless @connection
             sleep(10)
-            refresh_response = transactor.set( "v1/authenticate/refresh",
+            refresh_response = transactor.post( "v1/authenticate/refresh",
               refresh_token: refresh_token
             )
             refresh_token = refresh_response[:tokens][:refresh_token]

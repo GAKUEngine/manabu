@@ -48,21 +48,32 @@ module Manabu
 
       # Gets data from the server
       def get(endpoint, **args)
-        response = connect.get(
-          URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
+        _define_action(:get, endpoint, args)
+      end
+
+      # Sets data from the server
+      def post(endpoint, **args)
+        _define_action(:post, endpoint, args)
+      end
+
+      def put(endpoint, **args)
+        _define_action(:put, endpoint, args)
+      end
+
+      def delete(endpoint, **args)
+        _define_action(:delete, endpoint, args)
+      end
+
+      def _define_action(action, endpoint, args)
+        response = connect.send(
+          action,
+          URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"),
+          args
         )
         _status_raiser(response)
         _datafy_response(response.body)
       end
 
-      # Sets data from the server
-      def set(endpoint, **args)
-        response = connect.post(
-          URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"), args
-        )
-        _status_raiser(response)
-        _datafy_response(response.body)
-      end
 
       def _status_raiser(response)
         case response.status
