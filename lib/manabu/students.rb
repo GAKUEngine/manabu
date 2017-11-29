@@ -24,5 +24,9 @@ module Manabu
       transactor.get("v1/students/#{id}")
     end
 
+    def destroy(id)
+      transactor.delete("v1/students/#{id}")
+    end
+
   end
 end
