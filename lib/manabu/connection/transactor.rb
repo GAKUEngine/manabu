@@ -56,8 +56,8 @@ module Manabu
         _define_action(:post, endpoint, args)
       end
 
-      def put(endpoint, **args)
-        _define_action(:put, endpoint, args)
+      def patch(endpoint, **args)
+        _define_action(:patch, endpoint, args)
       end
 
       def delete(endpoint, **args)

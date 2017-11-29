@@ -1,8 +1,11 @@
-require_relative 'transactor'
+require_relative 'connection/transactor'
 module Manabu
   class Students
-    def initialize(auth)
-      @auth = auth
+    attr_accessor :client, :transactor
+
+    def initialize(client)
+      @client = client
+      @transactor = client.transactor
     end
 
     def index
@@ -10,13 +13,16 @@ module Manabu
     end
 
     def create(attributes = {})
-      transactor.set('v1/students', student: attributes)
+      transactor.post('v1/students', student: attributes)
     end
 
-    private
-
-    def transactor
-      @transactor = Transactor.new('localhost', 9000, false)
+    def update(id, attributes = {})
+      transactor.patch("v1/students/#{id}", student: attributes)
     end
+
+    def show(id)
+      transactor.get("v1/students/#{id}")
+    end
+
   end
 end
