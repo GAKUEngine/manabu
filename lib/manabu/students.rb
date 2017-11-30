@@ -1,4 +1,6 @@
 require_relative 'connection/transactor'
+require_relative 'student/courses'
+
 module Manabu
   class Students
     attr_accessor :client, :transactor
@@ -27,6 +29,11 @@ module Manabu
     def destroy(id)
       transactor.delete("v1/students/#{id}")
     end
+
+    def courses(id)
+      Manabu::Student::Courses.new(transactor, id)
+    end
+
 
   end
 end
