@@ -3,14 +3,18 @@ require_relative 'transactor'
 module Manabu
   module Connection
     class Auth
-      attr_accessor :email, :password, :host, :port, :connection, :transactor
+      attr_accessor :username, :password, :host, :port, :connection, :transactor
 
-      def initialize(email, password, host, port)
-        @email = email
+      def initialize(username, password, host, port, **options)
+        @username = username
         @password = password
         @host = host
         @port = port
-        @transactor = Transactor.new(host, port, false)
+        @transactor = Transactor.new(host, port,
+                                     (options[:force_secure_connection] || true),
+                                     (options[:transport_type] || :msgpack),
+                                     options
+                                    )
         @connection = false
         _authenticate
 
@@ -26,7 +30,7 @@ module Manabu
       end
 
       def _authenticate
-        response = transactor.post("v1/authenticate", email: email, password: password)
+        response = @transactor.post("authenticate", username: username, password: password)
         @connection = true
         _refresh(response[:tokens])
       end
@@ -38,14 +42,13 @@ module Manabu
           loop do
             break unless @connection
             sleep(120)
-            refresh_response = transactor.post( "v1/authenticate/refresh",
+            refresh_response = transactor.post( "authenticate/refresh",
               refresh_token: refresh_token
             )
             refresh_token = refresh_response[:tokens][:refresh_token]
           end
         end
       end
-
     end
   end
 end

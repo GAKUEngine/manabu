@@ -7,7 +7,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     Gaku::Container.Start
     loop do
-      res = Faraday.get('http://localhost:9000/api/status') rescue nil
+      res = Faraday.get('http://localhost:9000/api/v1/status') rescue nil
       break if res && res.status == 200
       puts 'Waiting'
       sleep 5

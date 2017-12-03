@@ -10,14 +10,18 @@ module Manabu
   module Connection
     # Handles transactions between server, abstracting the transport protocol and returning objects
     class Transactor
-      attr_accessor :server_url, :server_port, :transport_type, :force_secure_connection, :status
+      attr_accessor :server_url, :server_port, :transport_type, :force_secure_connection, :status,
+                    :api_version
+
       def initialize(server_url, server_port = 80, force_secure_connection = true,
-                     transport_type = :msgpack)
+                     transport_type = :msgpack, **options)
         @server_url = server_url
         @server_port = server_port
         @transport_type = transport_type
         @status = :unknown
         @force_secure_connection = force_secure_connection
+        @options = options
+        @api_version = options[:api_version] || 1
         connect
         _check_server_status
       end
@@ -67,9 +71,10 @@ module Manabu
       def _define_action(action, endpoint, args)
         response = connect.send(
           action,
-          URI.encode("#{@protocol}://#{@server_url}:#{@server_port}/api/#{endpoint}"),
-          args
-        )
+          URI.encode(
+            "#{@protocol}://#{@server_url}:#{@server_port}/api/v#{@api_version}/#{endpoint}"),
+            args
+          )
         _status_raiser(response)
         _datafy_response(response.body)
       end

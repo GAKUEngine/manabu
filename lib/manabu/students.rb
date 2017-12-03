@@ -1,39 +1,34 @@
-require_relative 'connection/transactor'
-require_relative 'student/courses'
+require_relative 'client'
 
 module Manabu
   class Students
-    attr_accessor :client, :transactor
-
     def initialize(client)
       @client = client
-      @transactor = client.transactor
     end
 
     def index
-      transactor.get('v1/students')
+      @client.get('students')
+      # TODO format object
     end
 
-    def create(attributes = {})
-      transactor.post('v1/students', student: attributes)
-    end
+   # def create(attributes = {})
+   #   @client.post('students', student: attributes)
+   # end
 
-    def update(id, attributes = {})
-      transactor.patch("v1/students/#{id}", student: attributes)
-    end
+   # def update(id, attributes = {})
+   #   @client.patch("students/#{id}", student: attributes)
+   # end
 
-    def show(id)
-      transactor.get("v1/students/#{id}")
-    end
+   # def show(id)
+   #   @client.get("students/#{id}")
+   # end
 
-    def destroy(id)
-      transactor.delete("v1/students/#{id}")
-    end
+   # def destroy(id)
+   #   @client.delete("students/#{id}")
+   # end
 
-    def courses(id)
-      Manabu::Student::Courses.new(transactor, id)
-    end
-
-
+   # def courses(id)
+   #   Manabu::Student::Courses.new(transactor, id)
+   # end
   end
 end
