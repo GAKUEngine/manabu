@@ -3,11 +3,10 @@ require_relative 'transactor'
 module Manabu
   module Connection
     class Auth
-      attr_accessor :username, :password, :host, :port, :connection, :transactor
+      attr_accessor :username, :host, :port, :connection, :transactor, :token
 
       def initialize(username, password, host, port, **options)
         @username = username
-        @password = password
         @host = host
         @port = port
         @transactor = Transactor.new(host, port,
@@ -16,7 +15,7 @@ module Manabu
                                      options
                                     )
         @connection = false
-        _authenticate
+        _authenticate(username, password)
 
         ObjectSpace.define_finalizer(self, -> { @connection = false })
       end
@@ -29,7 +28,7 @@ module Manabu
 
       end
 
-      def _authenticate
+      def _authenticate(username, password)
         response = @transactor.post("authenticate", username: username, password: password)
         @connection = true
         _refresh(response[:tokens])
