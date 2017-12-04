@@ -17,6 +17,7 @@ RSpec.configure do |config|
         sleep 5
       end
     end
+    Gaku::Container.Testing
   end
 
   config.after(:suite) do
@@ -29,4 +30,3 @@ RSpec.configure do |config|
     false
   end
 end
-

@@ -10,8 +10,8 @@ module Manabu
         @host = host
         @port = port
         @transactor = Transactor.new(host, port,
-                                     (options[:force_secure_connection] || true),
-                                     (options[:transport_type] || :msgpack),
+                                     options.fetch(:force_secure_connection, true),
+                                     options.fetch(:transport_type, :msgpack),
                                      options
                                     )
         @connection = false
