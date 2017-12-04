@@ -31,6 +31,7 @@ module Manabu
       def _authenticate(username, password)
         response = @transactor.post("authenticate", username: username, password: password)
         @connection = true
+        @token = response[:tokens][:auth_token]
         _refresh(response[:tokens])
       end
 
@@ -43,7 +44,6 @@ module Manabu
             refresh_response = transactor.post( "authenticate/refresh",
               refresh_token: @refresh_token
             )
-            # puts refresh_response
             @refresh_token = refresh_response[:tokens][:refresh_token]
           end
         end

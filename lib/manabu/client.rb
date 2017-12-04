@@ -13,13 +13,13 @@ module Manabu
       end
     end
 
-    # Performs a GET against the API 
+    # Performs a GET against the API
     def get(path, **args)
-      @transactor.get(path, args.merge(@auth.token))
+      @transactor.get(path, args) #.merge(@auth.token))
     end
 
     def post(path, **args)
-      @transactor.post(path, args.merge(@auth.token))
+      @transactor.post(path, args) #.merge(@auth.token))
     end
 
     def patch(path, **args)

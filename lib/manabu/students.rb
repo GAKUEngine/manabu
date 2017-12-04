@@ -7,17 +7,18 @@ module Manabu
     end
 
     def index
-      @client.get('students')
       # TODO format object
+      @client.get('students')
     end
 
-   # def create(attributes = {})
-   #   @client.post('students', student: attributes)
-   # end
+   def register(attributes = {})
+     @client.post('students', student: attributes)
+   end
 
    # def update(id, attributes = {})
    #   @client.patch("students/#{id}", student: attributes)
    # end
+    # def register(attributes = {})
 
    # def show(id)
    #   @client.get("students/#{id}")
