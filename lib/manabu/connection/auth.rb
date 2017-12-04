@@ -3,7 +3,7 @@ require_relative 'transactor'
 module Manabu
   module Connection
     class Auth
-      attr_accessor :username, :host, :port, :connection, :transactor, :token
+      attr_accessor :username, :host, :port, :connection, :transactor, :token, :refresh_token
 
       def initialize(username, password, host, port, **options)
         @username = username
@@ -35,16 +35,16 @@ module Manabu
       end
 
       def _refresh(tokens)
+        @refresh_token = tokens[:refresh_token]
         thread = Thread.new do
-          refresh_token = tokens[:refresh_token]
-
           loop do
             break unless @connection
             sleep(120)
             refresh_response = transactor.post( "authenticate/refresh",
-              refresh_token: refresh_token
+              refresh_token: @refresh_token
             )
-            refresh_token = refresh_response[:tokens][:refresh_token]
+            # puts refresh_response
+            @refresh_token = refresh_response[:tokens][:refresh_token]
           end
         end
       end
