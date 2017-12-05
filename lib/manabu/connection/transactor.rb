@@ -11,7 +11,7 @@ module Manabu
     # Handles transactions between server, abstracting the transport protocol and returning objects
     class Transactor
       attr_accessor :server_url, :server_port, :transport_type, :force_secure_connection, :status,
-                    :api_version
+                    :api_version, :authorization
 
       def initialize(server_url, server_port = 80, force_secure_connection = true,
                      transport_type = :msgpack, **options)
@@ -73,10 +73,17 @@ module Manabu
           action,
           URI.encode(
             "#{@protocol}://#{@server_url}:#{@server_port}/api/v#{@api_version}/#{endpoint}"),
-            args
+            args,
+            _header_hash
           )
         _status_raiser(response)
         _datafy_response(response.body)
+      end
+
+      def _header_hash
+        Hash.new.tap do |h|
+          h['Authorization'] = authorization if authorization
+        end
       end
 
 
