@@ -92,7 +92,12 @@ module Manabu
         when 200..299
           return # don't raise
         else
-          raise Error::UnprocessableEntity, response.body
+          case @transport_type
+          when :msgpack
+            raise Error::UnprocessableEntity, _datafy_msgpack(response.body)
+          when :json
+            raise Error::UnprocessableEntity, _datafy_json(response.body)
+          end
         end
       end
 

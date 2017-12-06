@@ -12,7 +12,7 @@ module Manabu
     end
 
    def register(attributes = {})
-     @client.post('students', student: attributes)
+     @client.post('students', attributes)
    end
 
    # def update(id, attributes = {})
