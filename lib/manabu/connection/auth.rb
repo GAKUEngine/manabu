@@ -12,19 +12,18 @@ module Manabu
         @transactor = Transactor.new(host, port,
                                      options.fetch(:force_secure_connection, true),
                                      options.fetch(:transport_type, :msgpack),
-                                     options
-                                    )
+                                     options)
         @connection = false
         _authenticate(username, password)
 
         ObjectSpace.define_finalizer(self, -> { @connection = false })
       end
 
-      def success?
+      def success?()
         @connection
       end
 
-      def stop
+      def stop()
 
       end
 
@@ -44,9 +43,9 @@ module Manabu
           loop do
             break unless @connection
             sleep(120)
-            refresh_response = transactor.post( "authenticate/refresh",
-              refresh_token: @refresh_token
-            )
+            refresh_response = transactor.post("authenticate/refresh",
+                                               refresh_token: @refresh_token
+                                              )
             @transactor.authorization = refresh_response[:tokens][:auth_token]
             @refresh_token = refresh_response[:tokens][:refresh_token]
           end

@@ -1,3 +1,7 @@
+# Our projects prefer an explicit syntax that's fairly easily portable to/between C like languages.
+# This includes forcing parenthesis even when they are not required, and explciltly require most 
+# implicit statements.
+
 AsciiIdentifiers:
   Enabled: false # 日本語使えるから使わせて貰うわ
 
@@ -26,13 +30,22 @@ Lint/UselessAccessModifier:
   Enabled: false # without private designator methods were not private... rubocop bug?
 
 LineLength:
-  Max: 99 # safe for documentation
+  Max: 100 # safe for documentation
 
 RedundantReturn:
   Enabled: false # flow control should be clear
 
 VariableName:
   Enabled: false # we use proper names for static globals
+
+Style/NumericLiterals:
+  Enabled: false # just ugly if we're not doing scientific work
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false # prefer explicit calling
+
+Style/GlobalVars:
+  Enabled: false # use them when apropriate, don't abuse them
 
 AllCops:
   Exclude:

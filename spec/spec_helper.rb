@@ -25,8 +25,11 @@ RSpec.configure do |config|
   end
 
   def check_test_container()
-    res = Faraday.get('http://localhost:9000/api/v1/status') rescue nil
+    res = Faraday.get('http://localhost:9000/api/v1/status')
+
     return true if res && res.status == 200
     false
   end
+
+  config.filter_run_excluding timeouts: true
 end

@@ -15,19 +15,19 @@ module Manabu
 
     # Performs a GET against the API
     def get(path, **args)
-      @transactor.get(path, args) #.merge(@auth.token))
+      @transactor.get(path, args)
     end
 
     def post(path, **args)
-      @transactor.post(path, args) #.merge(@auth.token))
+      @transactor.post(path, args)
     end
 
     def patch(path, **args)
-      @transactor.patch(path, args.merge(@auth.token))
+      @transactor.patch(path, args)
     end
 
     def delete(path, **args)
-      @transactor.delete(path, args.merge(@auth.token))
+      @transactor.delete(path, args)
     end
   end
 end

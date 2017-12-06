@@ -1,17 +1,14 @@
 module Manabu
   module Student
     class Courses
+      def initialize(**details)
+        # TODO
+      end
 
-     # attr_accessor :transactor, :student_id
-
-     # def initialize(transactor, student_id)
-     #   @transactor = transactor
-     #   @student_id = student_id
-     # end
-
-     # def index
-     #   transactor.get("v1/students/#{student_id}/courses")
-     # end
+      def fill(**details)
+        # TODO
+        self
+      end
     end
   end
 end

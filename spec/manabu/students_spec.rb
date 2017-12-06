@@ -2,24 +2,49 @@ require 'spec_helper'
 require 'manabu/students'
 
 describe Manabu::Students do
-
-  context 'index' do
-    it 'initializes, connects to the server, and checks status' do
-      client = Manabu::Client.new('admin', 123456, 'localhost', 9000, force_secure_connection: false)
+  context '.roster' do
+    it 'Obtiains the student roster, without fitlers' do
+      client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
+                                  force_secure_connection: false)
       students = Manabu::Students.new(client)
-      expect(students.index).to be_kind_of(Hash)
+      expect(students.roster).to be_kind_of(Hash)
     end
+
+    # it 'Obtains a roster filtered by age' do
+    # end
+
+    # it 'Obtains a roster filtered by school year' do
+    # end
+
+    # it 'Obtains a roster filtered by students enrolled in a specific class' do
+    # end
   end
 
-  context 'register' do
-    it 'initializes, connects to the server, and checks status' do
-      client = Manabu::Client.new('admin', 123456, 'localhost', 9000, force_secure_connection: false)
+  context '.register' do
+    it 'registers a student with a hash' do
+      client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
+                                  force_secure_connection: false)
       students = Manabu::Students.new(client)
       student_hash = { name: 'test', surname: 'test' }
 
       response = students.register(student_hash)
-      expect(response).to be_kind_of(Hash)
-      expect(response[:name]).to eq 'test'
+      expect(response).to be_kind_of(Manabu::Student)
+      expect(response.name).to eq('test')
+      expect(response.id).to be_kind_of(Integer)
+    end
+
+    it 'registers a student with a Student object' do
+      client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
+                                  force_secure_connection: false)
+      students = Manabu::Students.new(client)
+      student = Manabu::Student.new
+      student.name = 'test'
+      student.surname = 'test'
+
+      response = students.register(student)
+      expect(response).to be_kind_of(Manabu::Student)
+      expect(response.name).to eq('test')
+      expect(response.id).to be_kind_of(Integer)
     end
   end
 end

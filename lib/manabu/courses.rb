@@ -10,13 +10,25 @@ module Manabu
       puts @client.get('courses')
     end
 
-    # def register(attributes = {})
-    # end
+    def register(course)
+      case course
+      when Manabu::Course
+        return register_course_by_object(course)
+      when Hash
+        return register_course_by_hash(course)
+      end
+    end
 
-    # def get(id)
-    # end
+    def register_course_by_object(course)
+      res = @client.post('courses', course.to_hash)
+      # TODO: handle errors
+      course.fill(res)
+    end
 
-    # def delete(id)
-    # end
+    def register_course_by_hash(course)
+      res = @client.post('courses', course)
+      # TODO: handle errors
+      Manabu::Course.new(res)
+    end
   end
 end
