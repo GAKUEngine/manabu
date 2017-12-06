@@ -6,8 +6,9 @@ module Manabu
       @client = client
     end
 
-    def index(filters = {})
-      puts @client.get('courses')
+    def index
+      # TODO format object
+      @client.get('courses')
     end
 
     def register(course)

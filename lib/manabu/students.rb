@@ -33,5 +33,22 @@ module Manabu
       # TODO: handle errors
       Manabu::Student.new(res)
     end
+
+   # def update(id, attributes = {})
+   #   @client.patch("students/#{id}", student: attributes)
+   # end
+    # def register(attributes = {})
+
+   # def show(id)
+   #   @client.get("students/#{id}")
+   # end
+
+   # def destroy(id)
+   #   @client.delete("students/#{id}")
+   # end
+
+   # def courses(id)
+   #   Manabu::Student::Courses.new(transactor, id)
+   # end
   end
 end
