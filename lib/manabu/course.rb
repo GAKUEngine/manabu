@@ -1,14 +1,5 @@
 module Manabu
-  module Student
-    class Courses
-      def initialize(**details)
-        # TODO
-      end
-
-      def fill(**details)
-        # TODO
-        self
-      end
-    end
+  class Course < Resource
+    FILL_ATTRS = %i( id code name ).freeze
   end
 end
