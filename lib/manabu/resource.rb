@@ -1,8 +1,16 @@
 module Manabu
   class Resource
+    FILL_ATTRS = %i()
 
     def initialize(**info)
+      self.class.class_eval do
+        attr_accessor *fill_attrs
+      end
       fill(info)
+    end
+
+    def self.fill_attrs
+      self.const_get(:FILL_ATTRS)
     end
 
     def fill(**info)
