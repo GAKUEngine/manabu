@@ -3,12 +3,17 @@ require_relative 'connection/auth'
 module Manabu
   # General client interface which bundles together most client functionality
   class Client
-    attr_accessor :auth, :transactor
+    attr_accessor :auth, :transactor, :status
+
+    # Initializes with login details and passes options to all linked instances
     def initialize(username, password, host, port = 80, **options)
+      @status = :initializing
       @auth = Manabu::Connection::Auth.new(username, password, host, port, options)
       if @auth.success?
         @transactor = @auth.transactor
+        @status = :connected
       else
+        @status = :failed
         raise Error::Connection::Unauthorized
       end
     end
