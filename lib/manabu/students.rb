@@ -31,7 +31,7 @@ module Manabu
     def register_student_by_hash(student)
       res = @client.post('students', student)
       # TODO: handle errors
-      Manabu::Student.new(res)
+      Manabu::Student.new(@client, res)
     end
 
    # def update(id, attributes = {})

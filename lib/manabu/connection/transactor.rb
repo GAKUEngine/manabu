@@ -116,13 +116,13 @@ module Manabu
         MessagePack::DefaultFactory.register_type(0x00, Symbol)
         MessagePack.unpack(body)
       rescue
-        raise Error::Connection::InvalidMsgPack, 'Malformed data from server!'
+        raise Manabu::Connection::Error::InvalidMsgPack, 'Malformed data from server!'
       end
 
       def _datafy_json(body)
         JSON.parse(body, symbolize_names: true)
       rescue JSON::ParseError
-        raise Error::Connection::InvalidJSON, 'Malformed data from server!'
+        raise Manabu::Connection::Error::InvalidJSON, 'Malformed data from server!'
       end
 
       def _check_server_status

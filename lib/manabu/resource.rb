@@ -1,7 +1,8 @@
 module Manabu
   class Resource
 
-    def initialize(**info)
+    def initialize(client, **info)
+      @client = client
       fill(info)
     end
 
