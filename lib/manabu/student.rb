@@ -18,11 +18,11 @@ module Manabu
     end
 
     def set(**info)
-      response = @client.patch("students/1", info)
+      response = @client.patch("students/#{@id}", info)
     end
 
     def guardians
-      response = @client.get("students/#{id}/guardians")
+      response = @client.get("students/#{@id}/guardians")
       response[:guardians].map {|guardian| Manabu::Guardian.new(@client, guardian) }
     end
   end

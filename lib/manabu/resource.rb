@@ -1,6 +1,5 @@
 module Manabu
   class Resource
-
     def initialize(client, **info)
       @client = client
       fill(info)
@@ -21,6 +20,5 @@ module Manabu
       end
       hash
     end
-
   end
 end
