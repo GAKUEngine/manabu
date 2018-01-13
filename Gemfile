@@ -13,6 +13,7 @@ group :development do
   gem 'guard-rspec'
   gem 'rubocop'
   gem 'guard-rubocop'
+  gem 'yard'
 end
 
 group :test do

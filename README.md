@@ -22,8 +22,7 @@ All rights reserved.
 
 This software is dual licensed under the GNU GPL version 3 and the AGPL version 3.  
 The full text of these licenses can be found here:  
-[GPL](https://gnu.org/licenses/gpl.html)  
-[AGPL](https://gnu.org/licenses/agpl.html)
+[GPL](https://gnu.org/licenses/gpl.html) [AGPL](https://gnu.org/licenses/agpl.html)  
 
 When submitting code, patches, or pull requests to official GAKU Engine repositories you agree to 
 transfer copyright to your code to the GAKU Engine project. This is to prevent an external party 

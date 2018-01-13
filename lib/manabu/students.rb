@@ -2,11 +2,25 @@ require_relative 'client'
 require_relative 'student'
 
 module Manabu
+  # Handles the student index for the given client
   class Students
+
+    # Initializes against the passed client instance. If the client instance does not 
+    # contain a client with a valid authorization all methods will return nil.
+    #
+    # == Parameters:
+    # client::
+    #  A Manabu::Client instance (with a valid authorization)
     def initialize(client)
       @client = client
     end
 
+    # Returns a roster of all students which the client user has access to.
+    # 
+    # == Parameters:
+    # filters:
+    #  A hash of filters to narrow down results. Available filters include:
+    #  * enrollment_status - [] TODO fill in enrollment statuses
     def roster(**filters)
       res = @client.get('students', filters)
       # TODO: handle errors
