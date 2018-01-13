@@ -3,11 +3,11 @@
 The Manabu client is built to access the GAKU Engine API.
 
 Usage
------
+=====
 
 
 Testing
--------
+=======
 Testing requires a working Docker installation with docker-compose accessble by your user account. 
 You can run rspec directly and a container will be brought up on port 9000. Each time you run 
 rspec the container is brought up and down, so each run will take some time. You can save time 
@@ -15,8 +15,19 @@ when running specs often by bringing up the test container in advance with
 ```rake testing:container:up``` and waiting for about 10 seconds for the container to come up 
 before running specs.
 
+Testing Container Details
+-------------------------
+Test server:
+ * URL: localhost
+ * Port: 9000
+ * HTTPS/SSL: No/Disabled
+
+Test admin user:
+ * username: admin
+ * password: 123456
+
 License & Contribution
-----------------------
+======================
 Manabu is Copyright 2012 K.K. GenSouSha of Aichi, Japan  
 All rights reserved.
 
