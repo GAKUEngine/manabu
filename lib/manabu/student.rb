@@ -3,7 +3,8 @@ require_relative './guardian'
 
 module Manabu
   class Student < Resource
-    attr_accessor :id, :surname, :name, :name_reading, :surname_reading, :birth_date, :gender
+    attr_accessor :id, :surname, :name, :name_reading,
+                    :surname_reading, :birth_date, :gender
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -18,12 +19,22 @@ module Manabu
     end
 
     def set(**info)
-      response = @client.patch("students/1", info)
+      response = @client.patch("students/#{id}", info)
+      fill(response)
     end
 
     def guardians
       response = @client.get("students/#{id}/guardians")
-      response[:guardians].map {|guardian| Manabu::Guardian.new(@client, guardian) }
+      response[:guardians].map do |guardian|
+        Manabu::Guardian.new(@client, guardian)
+      end
+    end
+
+    def courses
+      response = @client.get("students/#{id}/courses")
+      response[:courses].map do |course|
+        Manabu::Course.new(@client, course)
+      end
     end
   end
 end

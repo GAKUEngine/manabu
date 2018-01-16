@@ -18,8 +18,8 @@ describe Manabu::Courses do
       course_hash = { code: 'test' }
 
       response = coursees.register(course_hash)
-      expect(response).to be_kind_of(Hash)
-      expect(response[:code]).to eq 'test'
+      expect(response).to be_kind_of(Manabu::Course)
+      expect(response.code).to eq 'test'
     end
 
     it 'raise Manabu::Connection::Error::UnprocessableEntity when param is missing' do

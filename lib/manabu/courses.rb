@@ -29,7 +29,7 @@ module Manabu
     def register_course_by_hash(course)
       res = @client.post('courses', course)
       # TODO: handle errors
-      Manabu::Course.new(res)
+      Manabu::Course.new(@client, res)
     end
   end
 end

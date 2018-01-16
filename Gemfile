@@ -13,6 +13,8 @@ group :development do
   gem 'guard-rspec'
   gem 'rubocop'
   gem 'guard-rubocop'
+  gem 'pry'
+  gem 'awesome_print'
 end
 
 group :test do
