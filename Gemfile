@@ -15,6 +15,7 @@ group :development do
   gem 'guard-rubocop'
   gem 'pry'
   gem 'awesome_print'
+  gem 'yard'
 end
 
 group :test do

@@ -19,7 +19,7 @@ module Manabu
     end
 
     def set(**info)
-      response = @client.patch("students/#{id}", info)
+      response = @client.patch("students/#{@id}", info)
       fill(response)
     end
 
