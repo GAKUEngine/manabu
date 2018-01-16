@@ -7,9 +7,20 @@ module Manabu
         @client = client
         @student_id = student_id
         @seat_number = seat_number
+        @student = nil
       end
 
       def student
+        if @student
+          @student
+        else
+          @student = _fetch_student
+        end
+      end
+
+      private
+
+      def _fetch_student
         response = @client.get("students/#{@student_id}")
         Manabu::Student.new(@client, response)
       end
