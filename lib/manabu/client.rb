@@ -87,5 +87,9 @@ module Manabu
     def delete(path, **args)
       @transactor.delete(path, args)
     end
+
+    def inspect
+      "#<Manabu::Client:#{object_id}>"
+    end
   end
 end

@@ -5,7 +5,7 @@ module Manabu
   # Handles the student index for the given client
   class Students
 
-    # Initializes against the passed client instance. If the client instance does not 
+    # Initializes against the passed client instance. If the client instance does not
     # contain a client with a valid authorization all methods will return nil.
     #
     # == Parameters:
@@ -16,15 +16,18 @@ module Manabu
     end
 
     # Returns a roster of all students which the client user has access to.
-    # 
+    #
     # == Parameters:
     # filters:
     #  A hash of filters to narrow down results. Available filters include:
     #  * enrollment_status - [] TODO fill in enrollment statuses
     def roster(**filters)
-      res = @client.get('students', filters)
-      # TODO: handle errors
-      # TODO: return results as an array of Student object instances
+       # TODO: handle errors
+       # TODO: handle filters in API endpoint
+      response = @client.get('students', filters)
+      response[:students].map do |student|
+        Manabu::Student.new(@client, student)
+      end
     end
 
     def register(student)

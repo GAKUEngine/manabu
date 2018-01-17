@@ -23,6 +23,8 @@ module Manabu
       end
 
       def seat_number=(value)
+        # TODO: handle when seat is occupied by another student
+        # TODO: handle other errors (EG request was invalid, request timed out)
         response = @client.patch("courses/#{@course_id}/enrollments/#{@id}", seat_number: value)
         @seat_number = value
       end
@@ -68,7 +70,7 @@ module Manabu
       if @enrollments.any?
         @enrollments
       else
-        _fetch_enrollments
+        @enrollments = _fetch_enrollments
       end
     end
 
