@@ -3,10 +3,14 @@ module Manabu
 
     class Enrollment
 
-      def initialize(client, student_id, seat_number)
+      attr_reader :seat_number
+
+      def initialize(client, attributes = {})
         @client = client
-        @student_id = student_id
-        @seat_number = seat_number
+        @id = attributes.fetch(:id, @id)
+        @course_id = attributes.fetch(:course_id, @course_id)
+        @student_id = attributes.fetch(:student_id, @student_id)
+        @seat_number = attributes.fetch(:seat_number, @seat_number)
         @student = nil
       end
 
@@ -16,6 +20,11 @@ module Manabu
         else
           @student = _fetch_student
         end
+      end
+
+      def seat_number=(value)
+        response = @client.patch("courses/#{@course_id}/enrollments/#{@id}", seat_number: value)
+        @seat_number = value
       end
 
       private
@@ -69,7 +78,7 @@ module Manabu
         seat_number: args[:seat_number]
       )
 
-      Enrollment.new(@client, *response.values_at(:student_id, :seat_number)).tap do |enrollment|
+      Enrollment.new(@client, response).tap do |enrollment|
         @enrollments << enrollment
       end
     end
@@ -86,7 +95,7 @@ module Manabu
     def _fetch_enrollments
       response = @client.get("courses/#{id}/enrollments")
       response[:enrollments].map do |enrollment|
-        Enrollment.new(@client, enrollment[:student_id], enrollment[:seat_number])
+        Enrollment.new(@client, enrollment)
       end
     end
 
