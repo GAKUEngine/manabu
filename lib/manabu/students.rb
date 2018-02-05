@@ -13,6 +13,7 @@ module Manabu
     #  A Manabu::Client instance (with a valid authorization)
     def initialize(client)
       @client = client
+      @students = []
     end
 
     # Returns a roster of all students which the client user has access to.
@@ -26,24 +27,19 @@ module Manabu
        # TODO: handle filters in API endpoint
       filters_hash = build_filters(filters)
       response = @client.get('students', q: filters_hash)
-      response[:students].map do |student|
+      @students = response[:students].map do |student|
         Manabu::Student.new(@client, student)
       end
     end
 
-    def build_filters(filters)
-      {
-        enrollment_status_code_eq: filters[:enrollment_status]
-      }.compact
-    end
-
     def register(student)
-      case student
+      new_student = case student
       when Manabu::Student
-        return register_student_by_object(student)
+        register_student_by_object(student)
       when Hash
-        return register_student_by_hash(student)
+        register_student_by_hash(student)
       end
+      new_student.tap { |object| @students << object }
     end
 
     def register_student_by_object(student)
@@ -58,21 +54,20 @@ module Manabu
       Manabu::Student.new(@client, res)
     end
 
-   # def update(id, attributes = {})
-   #   @client.patch("students/#{id}", student: attributes)
-   # end
-    # def register(attributes = {})
+   def delete(student)
+     @client.delete("students/#{student.id}")
+     @students.reject! { |object| object.id == student.id }
+     # NOTE: check in response
+     true
+   end
 
-   # def show(id)
-   #   @client.get("students/#{id}")
-   # end
+    private
 
-   # def destroy(id)
-   #   @client.delete("students/#{id}")
-   # end
+    def build_filters(filters)
+     {
+       enrollment_status_code_eq: filters[:enrollment_status]
+     }.compact
+    end
 
-   # def courses(id)
-   #   Manabu::Student::Courses.new(transactor, id)
-   # end
   end
 end
