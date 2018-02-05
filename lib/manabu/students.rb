@@ -24,10 +24,17 @@ module Manabu
     def roster(**filters)
        # TODO: handle errors
        # TODO: handle filters in API endpoint
-      response = @client.get('students', filters)
+      filters_hash = build_filters(filters)
+      response = @client.get('students', q: filters_hash)
       response[:students].map do |student|
         Manabu::Student.new(@client, student)
       end
+    end
+
+    def build_filters(filters)
+      {
+        enrollment_status_code_eq: filters[:enrollment_status]
+      }.compact
     end
 
     def register(student)

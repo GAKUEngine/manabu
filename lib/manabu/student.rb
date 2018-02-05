@@ -3,6 +3,7 @@ require_relative './guardian'
 
 module Manabu
   class Student < Resource
+    class GuardianNotAdded < StandardError; end
     attr_accessor :id, :surname, :name, :name_reading,
                     :surname_reading, :birth_date, :gender
 
@@ -21,6 +22,14 @@ module Manabu
     def set(**info)
       response = @client.patch("students/#{@id}", info)
       fill(response)
+    end
+
+    def add_guardian(guardian)
+      # NOTE: detect when guardian is already added to student
+      response = @client.post("students/#{id}/student_guardians", guardian_id: guardian.id)
+      self
+    rescue StandardError
+      raise GuardianNotAdded, 'Guardian is not added to student'
     end
 
     def guardians
