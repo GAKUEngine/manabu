@@ -57,7 +57,7 @@ module Manabu
    def delete(student)
      @client.delete("students/#{student.id}")
      @students.reject! { |object| object.id == student.id }
-     # NOTE: check in response
+     # NOTE: check in response when implement error object
      true
    end
 
