@@ -1,11 +1,11 @@
-lib/manabu.rb 9110fe1a237987b6b0f139b7586011568c850016
-lib/manabu/client.rb 617e27cc630da5d7aa2c3d9e9b2aa64d83db5063
-lib/manabu/course.rb 444e7a37f3d0a978667c90bb74cb1c045ed14d70
-lib/manabu/courses.rb a30b0780595f37f5c4f6da5624bfc77943b86a79
-lib/manabu/student.rb f71d723dd94a5c6aae46ddb83b8ca20762459354
+lib/manabu.rb bd849605db5a96a56748f2ba864a3079e682afea
+lib/manabu/client.rb 2d40c0859e0dac56b26b7e1b611cdb9fc959ec62
+lib/manabu/course.rb b1e13a4089577e29a8f193d39dceebf0d8ff135c
+lib/manabu/courses.rb 3a42cd30375a20717eb68ef005f60dc4a019ca48
+lib/manabu/student.rb 9cd6adf00d9a2cac86c4ee80c3bd55ef917fb230
 lib/manabu/guardian.rb 79b22f01cea04d29b6ea90b5f7b9c10fe16b021e
 lib/manabu/resource.rb 5482191258d7bc89065de9a5c526c7a5aab550df
-lib/manabu/students.rb 583b7d04b70ad88a31738907fe06cf9c42103094
+lib/manabu/students.rb e6f3b380ad0a9aa8eb16c1be66d565385d446810
 lib/manabu/syllabuses.rb b2a330b71734e91cc8d7ce5b1d1a21a0210adad5
 lib/manabu/connection/auth.rb eb24cfac05676df952169bfd3231aee031991834
 lib/manabu/connection/error.rb c3d33cf768f242cc0ebffc34fd9af2b625ca088e

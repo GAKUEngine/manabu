@@ -1,4 +1,5 @@
 require_relative 'connection/auth'
+require_relative 'connection/transactor'
 
 module Manabu
   # General client interface which bundles together most client functionality
@@ -88,8 +89,8 @@ module Manabu
       @transactor.delete(path, args)
     end
 
-    def inspect
-      "#<Manabu::Client:#{object_id}>"
-    end
+    # def inspect
+    #   "#<Manabu::Client:#{object_id}>"
+    # end
   end
 end

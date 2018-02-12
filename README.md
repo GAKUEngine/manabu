@@ -13,7 +13,11 @@ You can run rspec directly and a container will be brought up on port 9000. Each
 rspec the container is brought up and down, so each run will take some time. You can save time 
 when running specs often by bringing up the test container in advance with 
 ```rake testing:container:up``` and waiting for about 10 seconds for the container to come up 
-before running specs.
+before running specs.  
+  
+*Alternatively, you can install the 'gaku' gem, and run 
+```gaku container start```, wait a few moments for the container to boot, then run 
+```gaku container sample``` to set up the container instance as a development sample).
 
 Testing Container Details
 -------------------------
