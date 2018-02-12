@@ -1,10 +1,9 @@
 require_relative 'client'
 require_relative 'student'
-
+require 'pry'
 module Manabu
   # Handles the student index for the given client
   class Students
-
     # Initializes against the passed client instance. If the client instance does not
     # contain a client with a valid authorization all methods will return nil.
     #
@@ -25,10 +24,13 @@ module Manabu
     def roster(**filters)
        # TODO: handle errors
        # TODO: handle filters in API endpoint
-      filters_hash = build_filters(filters)
-      response = @client.get('students', q: filters_hash)
-      @students = response[:students].map do |student|
-        Manabu::Student.new(@client, student)
+     # NOTE: cache results
+      return students if filters.empty?
+
+      students.select do |student|
+        filters.slice(*whitelist_filter_attributes).all? do |filter, value|
+          student.send(filter) == value
+        end
       end
     end
 
@@ -63,10 +65,23 @@ module Manabu
 
     private
 
-    def build_filters(filters)
-     {
-       enrollment_status_code_eq: filters[:enrollment_status]
-     }.compact
+    def students
+      if @students.any?
+        @students
+      else
+        @students = _fetch_students
+      end
+    end
+
+    def whitelist_filter_attributes
+      [:name, :surname]
+    end
+
+    def _fetch_students
+      response = @client.get('students')
+      response[:students].map do |student|
+        Manabu::Student.new(@client, student)
+      end
     end
 
   end
