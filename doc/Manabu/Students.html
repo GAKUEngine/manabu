@@ -260,7 +260,7 @@
   <div class="discussion">
     
 <p>Initializes against the passed client instance. If the client instance does
-not  contain a client with a valid authorization all methods will return
+not contain a client with a valid authorization all methods will return
 nil.</p>
 
 <h2 id="label-Parameters-3A">Parameters:</h2>
@@ -318,17 +318,17 @@ nil.</p>
       <pre class="lines">
 
 
-30
-31
-32
 33
 34
 35
 36
-37</pre>
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_student'>student</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_student'>student</span>
@@ -358,14 +358,14 @@ nil.</p>
       <pre class="lines">
 
 
-45
-46
-47
 48
-49</pre>
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_student_by_hash'>register_student_by_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_student'>student</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>students</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_student'>student</span><span class='rparen'>)</span>
@@ -392,14 +392,14 @@ nil.</p>
       <pre class="lines">
 
 
-39
-40
-41
 42
-43</pre>
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_student_by_object'>register_student_by_object</span><span class='lparen'>(</span><span class='id identifier rubyid_student'>student</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>students</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_student'>student</span><span class='period'>.</span><span class='id identifier rubyid_to_hash'>to_hash</span><span class='rparen'>)</span>
@@ -449,16 +449,22 @@ nil.</p>
 25
 26
 27
-28</pre>
+28
+29
+30
+31</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/manabu/students.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_roster'>roster</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_filters'>filters</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>students</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filters'>filters</span><span class='rparen'>)</span>
-  <span class='comment'># TODO: handle errors
-</span>  <span class='comment'># TODO: return results as an array of Student object instances
-</span><span class='kw'>end</span></pre>
+   <span class='comment'># TODO: handle errors
+</span>   <span class='comment'># TODO: handle filters in API endpoint
+</span>  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>students</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filters'>filters</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:students</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_student'>student</span><span class='op'>|</span>
+    <span class='const'><span class='object_link'><a href="../Manabu.html" title="Manabu (module)">Manabu</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Student.html" title="Manabu::Student (class)">Student</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Resource.html#initialize-instance_method" title="Manabu::Resource#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@client</span><span class='comma'>,</span> <span class='id identifier rubyid_student'>student</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -469,7 +475,7 @@ nil.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Jan 14 01:30:23 2018 by
+  Generated on Wed Jan 24 16:24:30 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.5.0).
 </div>
