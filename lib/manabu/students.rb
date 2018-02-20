@@ -1,6 +1,6 @@
 require_relative 'client'
 require_relative 'student'
-require 'pry'
+
 module Manabu
   # Handles the student index for the given client
   class Students
@@ -65,7 +65,7 @@ module Manabu
 
     private
 
-    def students
+    def students()
       if @students.any?
         @students
       else
@@ -73,11 +73,12 @@ module Manabu
       end
     end
 
-    def whitelist_filter_attributes
+    def whitelist_filter_attributes()
       [:name, :surname]
     end
 
-    def _fetch_students
+    def _fetch_students()
+      # TODO raise error if @client is nil
       response = @client.get('students')
       response[:students].map do |student|
         Manabu::Student.new(@client, student)
