@@ -5,14 +5,14 @@ Gem::Specification.new do |s|
   s.summary       = 'API client for GAKU Engine'
   s.description   = 'Manabu is an API client module used to access the GAKU Engine API'
   s.post_install_message =  \
-    '╔═════════════════════════╼' +
-    "║Manabu API Client for ⚙学 GAKU Engine [学エンジン] " +
-    '╟─────────────────────────╼' +
-    '║©2015 (株)幻創社 [Phantom Creation Inc.]' +
-    '║http://www.gakuengine.com' +
-    '╟─────────────────────────╼' +
-    '║Manabu is Open Sourced under the AGPLv3/GPLv3.' +
-    '╚═════════════════════════╼' 
+    "╔═════════════════════════╼\n" +
+    "║Manabu API Client for ⚙学 GAKU Engine [学エンジン] \n" +
+    "╟─────────────────────────╼\n" +
+    "║©2015 (株)幻創社 [Phantom Creation Inc.]\n" +
+    "║http://www.gakuengine.com\n" +
+    "╟─────────────────────────╼\n" +
+    "║Manabu is Open Sourced under the AGPLv3/GPLv3.\n" +
+    "╚═════════════════════════╼\n" 
   s.authors       = ['Rei Kagetsuki']
   s.email         = 'info@gakuengine.com'
   s.homepage      = 'http://www.gakuengine.com'
