@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'manabu'
-  s.version       = '0.0.2'
+  s.version       = '0.0.3'
   s.licenses      = ['AGPLv3', 'GPLv3']
   s.summary       = 'API client for GAKU Engine'
   s.description   = 'Manabu is an API client module used to access the GAKU Engine API'
@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday_middleware', '~> 0.12', '~> 0.12.2'
   s.add_dependency 'typhoeus', '~> 1.3', '~> 1.3.0'
   s.add_dependency 'msgpack', '~> 1.2', '~> 1.2.2'
-  s.add_development_dependency 'gaku', '~> 0.3.0', '~> 0.3.0.pre.3'
+  s.add_development_dependency 'gaku', '~> 0.3.0', '~> 0.3.0.pre.4'
 end
