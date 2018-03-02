@@ -74,7 +74,7 @@ module Manabu
     end
 
     def whitelist_filter_attributes
-      [:name, :surname]
+      [:id, :name, :surname]
     end
 
     def _fetch_students
