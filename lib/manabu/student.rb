@@ -1,12 +1,20 @@
 require_relative './resource'
 require_relative './guardian'
+require_relative './contact'
 
 module Manabu
   class Student < Resource
     class GuardianNotAdded < StandardError; end
+    class ContactNotAdded < StandardError; end
     attr_accessor :id, :surname, :name, :name_reading,
                     :surname_reading, :middle_name,
-                    :middle_name_reading,:birth_date, :gender, :enrollment_status_code
+                    :middle_name_reading,:birth_date, :gender, :enrollment_status_code,
+                    :contacts
+
+    def initialize(client, **info)
+      super
+      @contacts = []
+    end
 
 
     def fill(**info)
@@ -32,6 +40,17 @@ module Manabu
       self
     rescue StandardError
       raise GuardianNotAdded, 'Guardian is not added to student'
+    end
+
+    def add_contact(contact_type_id, data)
+      response = @client.post("students/#{id}/contacts",
+        contact_type_id: contact_type_id,
+        data: data
+      )
+      @contacts.push Contact.new(@client, response)
+      self
+    # rescue StandardError
+      # raise ContactNotAdded, 'Contact is not added to student'
     end
 
     def guardians

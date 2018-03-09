@@ -21,7 +21,7 @@ module Manabu
         @status = :unknown
         @force_secure_connection = force_secure_connection
         @options = options
-        @api_version = options[:api_version] || 1
+        @api_version = options.fetch(:api_version, 1)
         connect
         _check_server_status
       end
