@@ -69,11 +69,15 @@ module Manabu
         _define_action(:delete, endpoint, args)
       end
 
+      def full_host
+        "#{@protocol}://#{@server_url}:#{@server_port}"
+      end
+
       def _define_action(action, endpoint, args)
         response = connect.send(
           action,
           URI.encode(
-            "#{@protocol}://#{@server_url}:#{@server_port}/api/v#{@api_version}/#{endpoint}"),
+            "#{full_host}/api/v#{@api_version}/#{endpoint}"),
             args,
             _header_hash
           )

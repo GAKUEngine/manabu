@@ -17,6 +17,14 @@ module Manabu
       @contacts = []
     end
 
+    def picture_url
+      "#{@client.auth.full_host}#{@picture_path}"
+    end
+
+    def picture_thumb_url
+      "#{@client.auth.full_host}#{@picture_thumb_path}"
+    end
+
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -27,6 +35,8 @@ module Manabu
       @birth_date = info.fetch(:birth_date, @birth_date)
       @gender = info.fetch(:gender, @gender)
       @enrollment_status_code = info.fetch(:enrollment_status_code, @enrollment_status_code)
+      @picture_path = info.fetch(:picture_path, @picture_path)
+      @picture_thumb_path = info.fetch(:picture_thumb_path, @picture_thumb_path)
       self
     end
 

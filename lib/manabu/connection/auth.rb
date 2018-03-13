@@ -27,6 +27,10 @@ module Manabu
 
       end
 
+      def full_host
+        @transactor.full_host
+      end
+
       def _authenticate(username, password)
         response = @transactor.post("authenticate", username: username, password: password)
         @connection = true
