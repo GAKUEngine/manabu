@@ -29,6 +29,7 @@ module Manabu
       def connect()
         return @connection if @connection
         @connection = Faraday.new do |conn|
+          conn.request :multipart
           conn.request :url_encoded
 
           case @transport_type

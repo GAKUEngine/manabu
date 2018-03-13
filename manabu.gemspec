@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
     "║http://www.gakuengine.com\n" +
     "╟─────────────────────────╼\n" +
     "║Manabu is Open Sourced under the AGPLv3/GPLv3.\n" +
-    "╚═════════════════════════╼\n" 
+    "╚═════════════════════════╼\n"
   s.authors       = ['Rei Kagetsuki']
   s.email         = 'info@gakuengine.com'
   s.homepage      = 'http://www.gakuengine.com'
@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday_middleware', '~> 0.12', '~> 0.12.2'
   s.add_dependency 'typhoeus', '~> 1.3', '~> 1.3.0'
   s.add_dependency 'msgpack', '~> 1.2', '~> 1.2.2'
+  s.add_dependency 'ruby-filemagic'
   s.add_development_dependency 'gaku', '~> 0.3.0', '~> 0.3.0.pre.4'
 end
