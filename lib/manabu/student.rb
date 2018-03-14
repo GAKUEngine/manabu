@@ -15,16 +15,8 @@ module Manabu
     def initialize(client, **info)
       super
       @contacts = []
+      @picture = nil
     end
-
-    def picture_url
-      "#{@client.auth.full_host}#{@picture_path}"
-    end
-
-    def picture_thumb_url
-      "#{@client.auth.full_host}#{@picture_thumb_path}"
-    end
-
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -35,9 +27,15 @@ module Manabu
       @birth_date = info.fetch(:birth_date, @birth_date)
       @gender = info.fetch(:gender, @gender)
       @enrollment_status_code = info.fetch(:enrollment_status_code, @enrollment_status_code)
-      @picture_path = info.fetch(:picture_path, @picture_path)
-      @picture_thumb_path = info.fetch(:picture_thumb_path, @picture_thumb_path)
       self
+    end
+
+    def picture
+      return unless @id
+      return @picture if @picture
+
+      response = @client.simple_get("students/#{id}/picture")
+      @picture = response.body
     end
 
     def set(**info)
@@ -49,6 +47,7 @@ module Manabu
       file = Faraday::UploadIO.new(path, FileMagic.new(FileMagic::MAGIC_MIME).file(path))
 
       response = @client.patch("students/#{@id}", picture: file)
+      @picture = nil
       fill(response)
     end
 

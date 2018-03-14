@@ -33,6 +33,10 @@ module Manabu
       end
     end
 
+    def simple_get(endpoint)
+      @transactor.simple_get(endpoint)
+    end
+
     # Performs a GET against the API
     #
     # == Parameters:

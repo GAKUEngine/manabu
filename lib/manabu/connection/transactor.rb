@@ -51,6 +51,10 @@ module Manabu
         _check_server_status
       end
 
+      def simple_get(endpoint)
+        Faraday.get("#{full_host}/api/v#{@api_version}/#{endpoint}")
+      end
+
       # Gets data from the server
       def get(endpoint, **args)
         _define_action(:get, endpoint, args)
