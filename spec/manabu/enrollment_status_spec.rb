@@ -11,7 +11,6 @@ describe Manabu::EnrollmentStatus do
 
     it 'assign enrollment status to student' do
       # setup
-      binding.irb
       student = Manabu::Students.new(client)
         .register(name: 'test', surname: 'testov', enrollment_status_code: 'enrolled')
 
