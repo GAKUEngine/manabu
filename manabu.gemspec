@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'manabu'
-  s.version       = '0.0.3'
+  s.version       = '0.0.4'
   s.licenses      = ['AGPL-3.0', 'GPL-3.0']
   s.summary       = 'API client for GAKU Engine'
   s.description   = 'Manabu is an API client module used to access the GAKU Engine API'
