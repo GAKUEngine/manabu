@@ -13,7 +13,7 @@ module Manabu
 
       response = @client.get("/enrollment_statuses")
 
-      @enrollment_statuses =  response.map do |enrollment_status|
+      @enrollment_statuses =  response[:enrollment_statuses].map do |enrollment_status|
         Manabu::EnrollmentStatus.new(@client, enrollment_status)
       end
     end

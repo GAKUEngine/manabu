@@ -10,7 +10,8 @@ module Manabu
     class ContactNotAdded < StandardError; end
     attr_accessor :id, :surname, :name, :name_reading,
                     :surname_reading, :middle_name,
-                    :middle_name_reading,:birth_date, :gender, :enrollment_status
+                    :middle_name_reading,:birth_date, :gender, :enrollment_status,
+                    :contacts
 
     def initialize(client, **info)
       super
@@ -26,6 +27,7 @@ module Manabu
       @surname_reading = info.fetch(:surname_reading, @surname_reading)
       @birth_date = info.fetch(:birth_date, @birth_date)
       @gender = info.fetch(:gender, @gender)
+      @enrollment_status_code = info.fetch(:enrollment_status_code, @enrollment_status_code)
       @enrollment_status = Manabu::EnrollmentStatus.new(@client, info[:enrollment_status] || {})
       self
     end
