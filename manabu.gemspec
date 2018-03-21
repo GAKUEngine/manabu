@@ -26,5 +26,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'typhoeus', '~> 1.3', '~> 1.3.0'
   s.add_dependency 'msgpack', '~> 1.2', '~> 1.2.2'
   s.add_dependency 'ruby-filemagic'
-  s.add_development_dependency 'gaku', '~> 0.3.0', '~> 0.3.0.pre.4'
+  s.add_development_dependency 'gaku', '~> 0.3', '~> 0.3.0'
 end

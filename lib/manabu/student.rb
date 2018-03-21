@@ -7,9 +7,9 @@ module Manabu
   class Student < Resource
     class GuardianNotAdded < StandardError; end
     class ContactNotAdded < StandardError; end
-    attr_accessor :id, :surname, :name, :name_reading,
-                    :surname_reading, :middle_name,
-                    :middle_name_reading,:birth_date, :gender, :enrollment_status_code,
+    attr_accessor :id, :surname, :name, :middle_name,
+                    :surname_reading, :name_reading, :middle_name_reading,
+                    :birth_date, :gender, :enrollment_status_code,
                     :contacts
 
     def initialize(client, **info)
