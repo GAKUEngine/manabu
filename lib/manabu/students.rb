@@ -34,6 +34,14 @@ module Manabu
       end
     end
 
+    def filter(attrs = {})
+      result = students.dup
+      if attrs.has_key?(:enrollment_status)
+        result.select! { |student| student.enrollment_status&.code == attrs[:enrollment_status]  }
+      end
+      result
+    end
+
     def register(student)
       new_student = case student
       when Manabu::Student
