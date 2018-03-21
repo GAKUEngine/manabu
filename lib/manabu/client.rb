@@ -33,6 +33,10 @@ module Manabu
       end
     end
 
+    def inspect
+      "#<Manabu::Client @status=#{@status}>"
+    end
+
     # Performs a GET against the API
     #
     # == Parameters:
