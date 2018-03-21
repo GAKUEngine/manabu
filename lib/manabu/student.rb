@@ -11,7 +11,7 @@ module Manabu
     attr_accessor :id, :surname, :name, :name_reading,
                     :surname_reading, :middle_name,
                     :middle_name_reading,:birth_date, :gender, :enrollment_status,
-                    :contacts
+                    :contacts, :enrollment_status_code
 
     def initialize(client, **info)
       super

@@ -34,11 +34,18 @@ module Manabu
       end
     end
 
-    def filter(attrs = {})
+    def filter(conditions = {})
       result = students.dup
-      if attrs.has_key?(:enrollment_status)
-        result.select! { |student| student.enrollment_status&.code == attrs[:enrollment_status]  }
+
+      conditions.each do |name, value|
+        case name
+        when :enrollment_status
+          result.select! do |student|
+            student.enrollment_status_code == value
+          end
+        end
       end
+
       result
     end
 

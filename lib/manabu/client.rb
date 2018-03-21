@@ -33,6 +33,10 @@ module Manabu
       end
     end
 
+    def inspect
+      "#<#{self.class} @status=#{status}>"
+    end
+
     def simple_get(endpoint)
       @transactor.simple_get(endpoint)
     end
