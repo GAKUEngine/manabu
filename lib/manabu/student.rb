@@ -1,5 +1,6 @@
 require_relative './resource'
 require_relative './guardian'
+require_relative './enrollment_status'
 
 module Manabu
   class Student < Resource
@@ -17,7 +18,7 @@ module Manabu
       @surname_reading = info.fetch(:surname_reading, @surname_reading)
       @birth_date = info.fetch(:birth_date, @birth_date)
       @gender = info.fetch(:gender, @gender)
-      @enrollment_status = EnrollmentStatus.new(info.fetch(:enrollment_status_code, @enrollment_status&.code))
+      @enrollment_status = EnrollmentStatus.new(@client, info.fetch(:enrollment_status, @enrollment_status))
       self
     end
 
