@@ -1,13 +1,22 @@
+require 'filemagic'
 require_relative './resource'
 require_relative './guardian'
+require_relative './contact'
 
 module Manabu
   class Student < Resource
     class GuardianNotAdded < StandardError; end
-    attr_accessor :id, :surname, :name, :name_reading,
-                    :surname_reading, :middle_name,
-                    :middle_name_reading,:birth_date, :gender, :enrollment_status_code
+    class ContactNotAdded < StandardError; end
+    attr_accessor :id, :surname, :name, :middle_name,
+                    :surname_reading, :name_reading, :middle_name_reading,
+                    :birth_date, :gender, :enrollment_status_code,
+                    :contacts
 
+    def initialize(client, **info)
+      super
+      @contacts = []
+      @picture = nil
+    end
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -21,8 +30,24 @@ module Manabu
       self
     end
 
+    def picture
+      return unless @id
+      return @picture if @picture
+
+      response = @client.simple_get("students/#{id}/picture")
+      @picture = response.body
+    end
+
     def set(**info)
       response = @client.patch("students/#{@id}", info)
+      fill(response)
+    end
+
+    def add_picture(path)
+      file = Faraday::UploadIO.new(path, FileMagic.new(FileMagic::MAGIC_MIME).file(path))
+
+      response = @client.patch("students/#{@id}", picture: file)
+      @picture = nil
       fill(response)
     end
 
@@ -32,6 +57,17 @@ module Manabu
       self
     rescue StandardError
       raise GuardianNotAdded, 'Guardian is not added to student'
+    end
+
+    def add_contact(contact_type_id, data)
+      response = @client.post("students/#{id}/contacts",
+        contact_type_id: contact_type_id,
+        data: data
+      )
+      @contacts.push Contact.new(@client, response)
+      self
+    # rescue StandardError
+      # raise ContactNotAdded, 'Contact is not added to student'
     end
 
     def guardians

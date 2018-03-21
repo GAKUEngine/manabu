@@ -1,5 +1,6 @@
 require 'manabu/student'
 require 'manabu/students'
+require 'manabu/contact_types'
 describe Manabu::Students do
 
   let(:client) {  Manabu::Client.new('admin', '123456', 'localhost', 9000,
@@ -51,6 +52,25 @@ describe Manabu::Students do
 
       # teardown
       # will add it when implement destroy student
+    end
+  end
+
+  context '.add_contact' do
+    it 'creates new contact' do
+      contact_type_id = Manabu::ContactTypes.new(client).register('something')
+
+
+      student = Manabu::Students.new(client)
+        .register(name: 'test', surname: 'testov')
+
+      student.add_contact(contact_type_id, "089912341234")
+
+      expect(student.contacts.length).to_not eq 0
+
+      contact = student.contacts.first
+
+      expect(contact.data).to eq '089912341234'
+
     end
   end
 end

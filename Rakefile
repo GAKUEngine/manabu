@@ -5,6 +5,7 @@ namespace :testing do
     desc 'Starts the testing container'
     task :up do
       Gaku::Container.Start
+      Gaku::Container.Testing
     end
 
     desc 'Stops the testing container'

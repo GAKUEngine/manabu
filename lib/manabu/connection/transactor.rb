@@ -21,7 +21,7 @@ module Manabu
         @status = :unknown
         @force_secure_connection = force_secure_connection
         @options = options
-        @api_version = options[:api_version] || 1
+        @api_version = options.fetch(:api_version, 1)
         connect
         _check_server_status
       end
@@ -29,6 +29,7 @@ module Manabu
       def connect()
         return @connection if @connection
         @connection = Faraday.new do |conn|
+          conn.request :multipart
           conn.request :url_encoded
 
           case @transport_type
@@ -50,6 +51,10 @@ module Manabu
         _check_server_status
       end
 
+      def simple_get(endpoint)
+        Faraday.get("#{full_host}/api/v#{@api_version}/#{endpoint}")
+      end
+
       # Gets data from the server
       def get(endpoint, **args)
         _define_action(:get, endpoint, args)
@@ -68,11 +73,15 @@ module Manabu
         _define_action(:delete, endpoint, args)
       end
 
+      def full_host
+        "#{@protocol}://#{@server_url}:#{@server_port}"
+      end
+
       def _define_action(action, endpoint, args)
         response = connect.send(
           action,
           URI.encode(
-            "#{@protocol}://#{@server_url}:#{@server_port}/api/v#{@api_version}/#{endpoint}"),
+            "#{full_host}/api/v#{@api_version}/#{endpoint}"),
             args,
             _header_hash
           )
