@@ -62,9 +62,9 @@ module Manabu
       raise GuardianNotAdded, 'Guardian is not added to student'
     end
 
-    def add_contact(contact_type_id, data)
+    def add_contact(contact_type, data)
       response = @client.post("students/#{id}/contacts",
-        contact_type_id: contact_type_id,
+        contact_type_id: contact_type.id,
         data: data
       )
       @contacts.push Contact.new(@client, response)
