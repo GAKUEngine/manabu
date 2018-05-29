@@ -12,5 +12,19 @@ module Manabu
       self
     end
 
+    def exams
+      response = @client.get("syllabuses/#{id}/exams")
+      response[:exams].map do |exam|
+        Manabu::Exam.new(@client, exam)
+      end
+    end
+
+    def courses
+      response = @client.get("syllabuses/#{id}/courses")
+      response[:courses].map do |course|
+        Manabu::Course.new(@client, course)
+      end
+    end
+
   end
 end

@@ -2,6 +2,7 @@ require 'websocket-client-simple'
 module Manabu
   module Connection
     class ExamChannel
+      attr_accessor :exam
       ExamPortionScore = Struct.new(:id, :score)
 
       attr_accessor :enqueue, :message
@@ -15,6 +16,7 @@ module Manabu
       # private
 
       def connect(&block)
+        context = self
         token = @client.transactor.authorization
 
         ws = WebSocket::Client::Simple.connect "ws://localhost:9000/api/v1/cable?auth_token=#{token}"
@@ -22,7 +24,7 @@ module Manabu
         ws.on :open do
           msg = {
             command: 'subscribe',
-            identifier: { channel: 'ApplicationCable::ExamChannel', exam: @exam}.to_json
+            identifier: { channel: 'ApplicationCable::ExamChannel', exam_id: context.exam}.to_json
           }.to_json
           ws.send msg
         end
@@ -34,7 +36,7 @@ module Manabu
               puts data
               if data && data['identifier']
                 # puts JSON.parse(data).inspect
-                if JSON.parse(data['identifier']) == { "channel" => "ApplicationCable::ExamChannel", "exam" => @exam }
+                if JSON.parse(data['identifier']) == { "channel" => "ApplicationCable::ExamChannel", "exam_id" => @exam }
                   message = data['message']
                   unless message.nil?
                     # block.call(ExamPortionScore.new(message["id"], message['score']))
