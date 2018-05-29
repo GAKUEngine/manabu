@@ -12,6 +12,7 @@ module Manabu
       self
     end
 
+    # NOTE: should cache exams
     def exams
       response = @client.get("syllabuses/#{id}/exams")
       response[:exams].map do |exam|
@@ -19,6 +20,7 @@ module Manabu
       end
     end
 
+    # NOTE: should cache courses
     def courses
       response = @client.get("syllabuses/#{id}/courses")
       response[:courses].map do |course|
