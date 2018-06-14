@@ -17,6 +17,7 @@ module Manabu
 
       def connect(&block)
         context = self
+        connect_block = block
         token = @client.transactor.authorization
 
         ws = WebSocket::Client::Simple.connect "ws://localhost:9000/api/v1/cable?auth_token=#{token}"
@@ -33,18 +34,8 @@ module Manabu
             channel = self
             ws.on :message do |msg|
               data = JSON.parse msg.data
-              puts data
-              if data && data['identifier']
-                # puts JSON.parse(data).inspect
-                if JSON.parse(data['identifier']) == { "channel" => "ApplicationCable::ExamChannel", "exam_id" => @exam }
-                  message = data['message']
-                  unless message.nil?
-                    # block.call(ExamPortionScore.new(message["id"], message['score']))
-                    block.call(message)
-                    # channel.enqueue.push ExamPortionScore.new(message["id"], message['score'])
-                  end
-                end
-              end
+
+              block.call(data['message']) if data.has_key?('identifier')
             end
           end
         end
