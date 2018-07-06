@@ -2,10 +2,7 @@ require 'websocket-client-simple'
 module Manabu
   module Connection
     class ExamChannel
-      attr_accessor :exam
-      ExamPortionScore = Struct.new(:id, :score)
-
-      attr_accessor :enqueue, :message
+      attr_accessor :exam, :enqueue, :message
 
       def initialize(client, exam)
         @client = client

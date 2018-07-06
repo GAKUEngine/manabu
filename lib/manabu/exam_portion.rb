@@ -21,8 +21,12 @@ module Manabu
       end
     end
 
-    def scores
-      if @scores.any?
+    def refresh_portions
+      scores(false)
+    end
+
+    def scores(cache = true)
+      if @scores.any? && cache
         @scores
       else
         @scores = _fetch_exam_portion_scores
