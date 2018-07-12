@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 require 'manabu/student'
 require 'manabu/students'
@@ -10,13 +11,11 @@ describe Manabu::EnrollmentStatus do
 
 
     it 'assign enrollment status to student' do
-      # setup
       student = Manabu::Students.new(client)
         .register(name: 'test', surname: 'testov', enrollment_status_code: 'enrolled', birth_date: Date.today)
 
       expect(student.enrollment_status).to be_instance_of(Manabu::EnrollmentStatus)
       expect(student.enrollment_status.id).to_not be_nil
       expect(student.enrollment_status.code).to eq 'enrolled'
-      # will add it when implement destroy student
     end
 end
