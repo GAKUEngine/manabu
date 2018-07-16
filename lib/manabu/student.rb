@@ -1,4 +1,4 @@
-require 'filemagic'
+require 'mimemagic'
 require_relative './resource'
 require_relative './guardian'
 require_relative './enrollment_status'
@@ -47,7 +47,8 @@ module Manabu
     end
 
     def add_picture(path)
-      file = Faraday::UploadIO.new(path, FileMagic.new(FileMagic::MAGIC_MIME).file(path))
+      file_mimetype = MimeMagic.by_path(path)
+      file = Faraday::UploadIO.new(path, file_mimetype)
 
       response = @client.patch("students/#{@id}", picture: file)
       @picture = nil
