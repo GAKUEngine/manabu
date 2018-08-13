@@ -29,12 +29,6 @@ module Manabu
       @live = false
     end
 
-    def refresh
-      exam.portions.each do |portion|
-        portion.refresh_portions
-      end
-    end
-
     def live?
       @live
     end

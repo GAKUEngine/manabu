@@ -1,13 +1,29 @@
-
 require 'websocket-client-simple'
 module Manabu
   module Connection
     class GradingChannel
-      attr_accessor  :exam, :enqueue, :message
+      attr_accessor :exam, :enqueue, :message
 
       def initialize(client, exam)
         @client = client
-        @e: context.exam}.to_json
+        @enqueue = []
+        @exam = exam
+      end
+
+      # private
+
+      def connect(&block)
+        context = self
+        connect_block = block
+
+        token = @client.transactor.authorization
+
+        ws = WebSocket::Client::Simple.connect "ws://localhost:9000/api/v1/cable?auth_token=#{token}"
+
+        ws.on :open do
+          msg = {
+            command: 'subscribe',
+            identifier: { channel: 'ApplicationCable::GradingChannel', exam_id: context.exam}.to_json
           }.to_json
           ws.send msg
         end

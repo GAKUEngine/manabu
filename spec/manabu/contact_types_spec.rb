@@ -7,7 +7,7 @@ describe Manabu::ContactTypes do
 
   context 'types' do
     it 'return all types as hash' do
-      expect(contact_types.all).to include({"email" => 1})
+      expect(contact_types.all[0]).to be_kind_of(Manabu::ContactType)
     end
   end
 
@@ -15,7 +15,7 @@ describe Manabu::ContactTypes do
 
     it 'create new contact type' do
       response = contact_types.register("mobile")
-      expect(response).to be_integer
+      expect(response).to be_kind_of(Manabu::ContactType)
 
     end
 

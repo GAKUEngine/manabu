@@ -13,7 +13,7 @@ module Manabu
       @portions = []
 
       @scoring = Manabu::Scoring.new(@client, self)
-      @grading = Manabu::Grading.new(@client, self)
+      # @grading = Manabu::Grading.new(@client, self)
 
       self
     end
