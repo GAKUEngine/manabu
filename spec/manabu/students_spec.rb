@@ -6,7 +6,7 @@ describe Manabu::Students do
       client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
                                   force_secure_connection: false)
       students = Manabu::Students.new(client)
-      student_hash = { name: 'test', surname: 'test' }
+      student_hash = { name: 'test', surname: 'test', birth_date: Date.today }
 
       response = students.register(student_hash)
       expect(response).to be_kind_of(Manabu::Student)
@@ -19,7 +19,7 @@ describe Manabu::Students do
       client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
                                   force_secure_connection: false)
       students = Manabu::Students.new(client)
-      student_hash = { name: 'test', surname: 'test' }
+      student_hash = { name: 'test', surname: 'test', birth_date: Date.today }
 
       response = students.register(student_hash)
       expect(response).to be_kind_of(Manabu::Student)
@@ -32,7 +32,7 @@ describe Manabu::Students do
       client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
                                   force_secure_connection: false)
       students = Manabu::Students.new(client)
-      student_hash = { name: 'test', surname: 'test' }
+      student_hash = { name: 'test', surname: 'test', birth_date: Date.today }
 
       response = students.register(student_hash)
       expect(response).to be_kind_of(Manabu::Student)
@@ -55,7 +55,7 @@ describe Manabu::Students do
       client = Manabu::Client.new('admin', 123456, 'localhost', 9000,
                                   force_secure_connection: false)
       students = Manabu::Students.new(client)
-      student_hash = { name: 'test', surname: 'test' }
+      student_hash = { name: 'test', surname: 'test', birth_date: Date.today }
 
       response = students.register(student_hash)
       expect(response).to be_kind_of(Manabu::Student)
@@ -70,6 +70,7 @@ describe Manabu::Students do
       student = Manabu::Student.new(client)
       student.name = 'test'
       student.surname = 'test'
+      student.birth_date = Date.today
 
       response = students.register(student)
       expect(response).to be_kind_of(Manabu::Student)

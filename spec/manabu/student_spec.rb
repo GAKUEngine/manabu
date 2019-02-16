@@ -1,6 +1,7 @@
 require 'manabu/student'
 require 'manabu/students'
 require 'manabu/contact_types'
+require 'date'
 describe Manabu::Students do
 
   let(:client) {  Manabu::Client.new('admin', '123456', 'localhost', 9000,
@@ -40,7 +41,7 @@ describe Manabu::Students do
     it 'change student attribute' do
       # setup
       student = Manabu::Students.new(client)
-        .register(name: 'test', surname: 'testov')
+        .register(name: 'test', surname: 'testov', birth_date: Date.today)
       expect(student.id).to_not be_nil
 
       # excercise
@@ -61,7 +62,7 @@ describe Manabu::Students do
 
 
       student = Manabu::Students.new(client)
-        .register(name: 'test', surname: 'testov')
+        .register(name: 'test', surname: 'testov', birth_date: Date.today)
 
       student.add_contact(contact_type_id, "089912341234")
 
