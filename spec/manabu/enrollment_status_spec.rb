@@ -12,7 +12,7 @@ describe Manabu::EnrollmentStatus do
     it 'assign enrollment status to student' do
       # setup
       student = Manabu::Students.new(client)
-        .register(name: 'test', surname: 'testov', enrollment_status_code: 'enrolled')
+        .register(name: 'test', surname: 'testov', enrollment_status_code: 'enrolled', birth_date: Date.today)
 
       expect(student.enrollment_status).to be_instance_of(Manabu::EnrollmentStatus)
       expect(student.enrollment_status.id).to_not be_nil
