@@ -2,7 +2,14 @@ require_relative './resource'
 
 module Manabu
   class Guardian < Resource
+    class ContactNotAdded < StandardError; end
+
     attr_accessor :id, :surname, :name, :name_reading, :surname_reading, :birth_date, :gender
+
+    def initialize(client, **info)
+      super
+      @contacts = []
+    end
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -14,6 +21,17 @@ module Manabu
       @gender = info.fetch(:gender, @gender)
 
       self
+    end
+
+    def add_contact(contact_type_id, data)
+      response = @client.post("guardians/#{id}/contacts",
+        contact_type_id: contact_type_id,
+        data: data
+      )
+      @contacts.push Contact.new(@client, response)
+      self
+    rescue StandardError
+      raise ContactNotAdded, 'Contact is not added to student'
     end
 
   end

@@ -68,8 +68,8 @@ module Manabu
       )
       @contacts.push Contact.new(@client, response)
       self
-    # rescue StandardError
-      # raise ContactNotAdded, 'Contact is not added to student'
+    rescue StandardError
+      raise ContactNotAdded, 'Contact is not added to student'
     end
 
     def guardians

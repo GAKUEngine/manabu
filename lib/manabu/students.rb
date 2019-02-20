@@ -78,7 +78,6 @@ module Manabu
      true
    end
 
-    private
 
     def students()
       if @students.any?
@@ -87,6 +86,8 @@ module Manabu
         @students = _fetch_students
       end
     end
+
+    private
 
     def whitelist_filter_attributes
       [:id, :name, :surname]
