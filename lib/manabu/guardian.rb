@@ -3,6 +3,7 @@ require_relative './resource'
 module Manabu
   class Guardian < Resource
     class ContactNotAdded < StandardError; end
+    class AddressNotAdded < StandardError; end
 
     attr_accessor :id, :surname, :name, :name_reading, :surname_reading, :birth_date, :gender
 
@@ -32,6 +33,21 @@ module Manabu
       self
     rescue StandardError
       raise ContactNotAdded, 'Contact is not added to student'
+    end
+
+    def add_address(address)
+      response =
+        @client.post("guardians/#{id}/addresses",
+          address1: address.address1,
+          address2: address.address2,
+          zipcode: address.zipcode,
+          state: address.state,
+          country_id: address.country_id,
+          city: address.city
+        )
+      self
+    rescue StandardError
+      raise AddressNotAdded, 'Address is not added to student'
     end
 
   end
