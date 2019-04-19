@@ -11,6 +11,7 @@ RSpec.configure do |config|
     else
       puts '⚠ Demo server container not detected. Starting up....'
       $external_test_container = false
+      Gaku::Container.Delete
       Gaku::Container.Start
       loop do
         break if check_test_container()
