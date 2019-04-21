@@ -2,22 +2,33 @@ require_relative 'client'
 
 module Manabu
   class Courses
+
     def initialize(client)
       @client = client
+      @courses = []
     end
 
-    def index
+    def all
+      return @courses if @courses.any?
+
       # TODO format object
-      @client.get('courses')
+      response = @client.get('courses')
+      @courses = response[:courses].map do |course|
+        Manabu::Course.new(@client, course)
+      end
     end
 
     def register(course)
-      case course
+
+      new_course = case course
       when Manabu::Course
         return register_course_by_object(course)
       when Hash
         return register_course_by_hash(course)
       end
+
+      new_course.tap { |object| @courses.push object }
+
     end
 
     def register_course_by_object(course)

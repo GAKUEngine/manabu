@@ -7,7 +7,8 @@ describe Manabu::Syllabuses do
     it 'initializes, connects to the server, and checks status' do
       client = Manabu::Client.new('admin', 123456, 'localhost', 9000, force_secure_connection: false)
       syllabuses = Manabu::Syllabuses.new(client)
-      expect(syllabuses.index).to be_kind_of(Hash)
+      # setup
+      expect(syllabuses.all).to be_kind_of(Array)
     end
   end
 
@@ -17,9 +18,9 @@ describe Manabu::Syllabuses do
       syllabuses = Manabu::Syllabuses.new(client)
       syllabuse_hash = { code: 'test', name: 'test' }
 
-      response = syllabuses.register(syllabuse_hash)
-      expect(response).to be_kind_of(Hash)
-      expect(response[:code]).to eq 'test'
+      syllabus = syllabuses.register(syllabuse_hash)
+      expect(syllabus).to be_kind_of(Manabu::Syllabus)
+      expect(syllabus.code).to eq 'test'
     end
 
     it 'raise Manabu::Connection::Error::UnprocessableEntity when param is missing' do

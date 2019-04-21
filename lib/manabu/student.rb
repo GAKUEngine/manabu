@@ -1,4 +1,4 @@
-require 'filemagic'
+require 'mimemagic'
 require_relative './resource'
 require_relative './guardian'
 require_relative './enrollment_status'
@@ -47,7 +47,8 @@ module Manabu
     end
 
     def add_picture(path)
-      file = Faraday::UploadIO.new(path, FileMagic.new(FileMagic::MAGIC_MIME).file(path))
+      file_mimetype = MimeMagic.by_path(path)
+      file = Faraday::UploadIO.new(path, file_mimetype)
 
       response = @client.patch("students/#{@id}", picture: file)
       @picture = nil
@@ -62,9 +63,9 @@ module Manabu
       raise GuardianNotAdded, 'Guardian is not added to student'
     end
 
-    def add_contact(contact_type_id, data)
+    def add_contact(contact_type, data)
       response = @client.post("students/#{id}/contacts",
-        contact_type_id: contact_type_id,
+        contact_type_id: contact_type.id,
         data: data
       )
       @contacts.push Contact.new(@client, response)
