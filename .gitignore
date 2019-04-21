@@ -2,5 +2,6 @@
 *.swo
 *.gem
 *.orig
+.ruby-version
 Gemfile.lock
 /tmp
