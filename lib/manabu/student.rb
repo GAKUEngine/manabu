@@ -1,24 +1,22 @@
 require 'mimemagic'
 require_relative './resource'
+require_relative './person'
 require_relative './guardian'
 require_relative './enrollment_status'
 require_relative './contact'
 
 module Manabu
-  class Student < Resource
+  class Student < Person
+    PLURAL= 'students'.freeze
+    SINGULAR = 'student'.freeze
+
     class GuardianNotAdded < StandardError; end
     class ContactNotAdded < StandardError; end
     class AddressNotAdded < StandardError; end
     attr_accessor :id, :surname, :name, :name_reading,
                     :surname_reading, :middle_name,
                     :middle_name_reading,:birth_date, :gender, :enrollment_status,
-                    :contacts, :enrollment_status_code
-
-    def initialize(client, **info)
-      super
-      @contacts = []
-      @picture = nil
-    end
+                    :enrollment_status_code
 
     def fill(**info)
       @id = info.fetch(:id, @id)
@@ -63,31 +61,6 @@ module Manabu
       raise GuardianNotAdded, 'Guardian is not added to student'
     end
 
-    def add_contact(contact_type, data)
-      response = @client.post("students/#{id}/contacts",
-        contact_type_id: contact_type.id,
-        data: data
-      )
-      @contacts.push Contact.new(@client, response)
-      self
-    rescue StandardError
-      raise ContactNotAdded, 'Contact is not added to student'
-    end
-
-    def add_address(address)
-      response =
-        @client.post("students/#{id}/addresses",
-          address1: address.address1,
-          address2: address.address2,
-          zipcode: address.zipcode,
-          state: address.state,
-          country_id: address.country_id,
-          city: address.city
-        )
-      self
-    rescue StandardError
-      raise AddressNotAdded, 'Address is not added to student'
-    end
 
     def guardians
       response = @client.get("students/#{id}/guardians")
