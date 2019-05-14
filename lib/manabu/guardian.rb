@@ -1,16 +1,15 @@
 require_relative './resource'
+require_relative './person'
 
 module Manabu
-  class Guardian < Resource
+  class Guardian < Person
+    PLURAL= 'guardians'.freeze
+    SINGULAR = 'guardian'.freeze
+
     class ContactNotAdded < StandardError; end
     class AddressNotAdded < StandardError; end
 
     attr_accessor :id, :surname, :name, :name_reading, :surname_reading, :birth_date, :gender
-
-    def initialize(client, **info)
-      super
-      @contacts = []
-    end
 
     def fill(**info)
       @id = info.fetch(:id, @id)
